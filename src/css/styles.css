@@ -57,7 +57,7 @@ color: #808080;
   border-color: #4e75ff;
 }
 .btn {
-  width: 75px;
+  width: 91px;
   height: 40px;
 
   font-size: 16px;
@@ -70,7 +70,10 @@ color: #808080;
   background-color: #4d5ae5;
   border: none;
   border-radius: 8px;
+
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
+
 .btn:hover,
 .btn:focus {
   background-color: #6c8cff;
@@ -143,4 +146,39 @@ font-weight: 600;
     transform: scale(1);
     opacity: 0;
   }
+}
+/* ------------------------- */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.more-btn {
+  width: 125px;
+  height: 40px;
+  margin: 32px;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+
+  cursor: pointer;
+  background-color: #4d5ae5;
+  border: none;
+  border-radius: 8px;
+
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.more-btn:hover,
+.more-btn:focus {
+  background-color: #6c8cff;
 }
