@@ -1,5 +1,5 @@
 import getPictures from "./js/pixabay-api";
-import createMurkup from "./js/render-functions";
+import createMarkup from "./js/render-functions";
 
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
@@ -21,16 +21,17 @@ let page = 1;
 let totalPage = 1;
 let value
 
-form.addEventListener("submit", toSabmit);
+form.addEventListener("submit", toSubmit);
 loadBtn.addEventListener("click", onLoadMore)
 
-function toSabmit(evt) {
+function toSubmit(evt) {
     evt.preventDefault();
     
     const { picture } = evt.target.elements;
     value = picture.value.trim();
     
      list.innerHTML = ""; 
+
     if(!value || value === " "){
         { iziToast.show({
       title:":(",         
@@ -43,61 +44,61 @@ function toSabmit(evt) {
 
     page = 1
     
-    loader.classList.remove("hidden");
+    loader.classList.replace("hidden", "loader")
     loadBtn.classList.replace("more-btn", "hidden");
 
-    getPictures(value,page, per_page)
-    
-        .then(({ data: { hits, totalHits
-        } }) => {
+    async function fetchData(value, page, per_page) {
+
+        try { 
+            const { data: { hits, totalHits } } = await getPictures(value, page, per_page);
             
-       totalPage = Math.ceil(totalHits / per_page);
+            totalPage = Math.ceil(totalHits / per_page);
             
-            if (!hits.length) { iziToast.show({
-      title:"X",         
-      message: "Sorry, there are no images matching your search query. Please try again!",
-      position: "center",
-      color: "red"
-            });                
-                
+            if (!hits.length) { 
+                iziToast.show({
+                    title: "X",         
+                    message: "Sorry, there are no images matching your search query. Please try again!",
+                    position: "center",
+                    color: "red"
+                });                
             }
             else {
-                list.innerHTML = createMurkup(hits);
+                list.innerHTML = createMarkup(hits);
                 litebox.refresh(); 
                 if (page >= totalPage ) {
-               
-                    loadBtn.classList.replace("more-btn", "hidden")
-                } else{loadBtn.classList.replace("hidden", "more-btn");}
-
-                }           
-            
-         })
-        .catch((error) => {
-            console.log(error.message)
+                    loadBtn.classList.replace("more-btn", "hidden");
+                } else {
+                    loadBtn.classList.replace("hidden", "more-btn");
+                }
+            }                    
+        } catch (error) {
             iziToast.show({
-                title: "X",
+                title: "X",         
                 message: `${error.message}`,
                 position: "center",
                 color: "red"
-            })
-        })
-        .finally(() => {
-            picture.value = "" 
-            loader.classList.add("hidden");           
-        })
+            });  
+        } finally {
+            loadBtn.disabled = false;
+            loader.classList.replace("hidden", "loader");
+        }
+    }
+
+    fetchData(value, page, per_page)
+    
 }
 
 async function onLoadMore() {
     page += 1;
     
     loadBtn.disabled = true;
-    loader.classList.add("hidden");
+    loader.classList.replace("hidden", "loader")
 
     try { 
         const { data: { hits, totalHits
         } } = await getPictures(value,page,per_page);
       
-        list.insertAdjacentHTML("beforeend", createMurkup(hits));
+        list.insertAdjacentHTML("beforeend", createMarkup(hits));
         totalPage = Math.ceil(totalHits / per_page);
        
         if (page === totalPage) {
@@ -132,6 +133,6 @@ async function onLoadMore() {
 
     finally {
         loadBtn.disabled = false;
-          loader.classList.add("hidden");
+        loader.classList.replace("hidden", "loader")
     }
 }

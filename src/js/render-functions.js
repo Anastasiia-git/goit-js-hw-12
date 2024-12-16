@@ -1,6 +1,6 @@
-export default createMurkup;
+export default createMarkup;
 
-function createMurkup(arr) {
+function createMarkup(arr) {
 
     return arr.map(({webformatURL,largeImageURL,tags,likes,views,comments,downloads }) => `<li class="list-item" >
   <a href="${largeImageURL}" alt="${tags}" title=""/>
