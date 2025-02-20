@@ -4,21 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>goit-js-hw-12</title>
+    <title>goit-js-hw-11</title>
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
     <form class="form">
       <input type="text" class="input" name = picture placeholder="Search images...">
       <button type="submit" class="btn">Start</button>
-        </form>
+    </form>
 
-        <div class="container">
-          <span class="loader hidden"></span>
         <ul class="gallery"></ul>
-        <button class="more-btn hidden">Load More</button>
+
+        <div class="loader-box">
+          <span class="loader"></span>
         </div>
 
+        <div class="btnBox">
+          <button type="button" class="btnLoadMore hidden">Load more</button>
+        </div>
+        
     <script type="module" src="./main.js"></script>
   </body>
 </html>
