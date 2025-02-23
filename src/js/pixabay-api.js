@@ -26,6 +26,8 @@ export const getAxios = async (search, page) => {
   })
 
   const result = response.data.hits;
+  const totalHits = response.data.totalHits;
+  const perPage = response.config.params.per_page
 
      if(result.length === 0) {       
       iziToast.show({
@@ -36,19 +38,20 @@ export const getAxios = async (search, page) => {
       })
       return [];
     }
-     else {
-      if (response.data.totalHits <= 1) {
-        btnLoadMore.disabled = true;
-        iziToast.info({
-          title: '😢',
-          message: `We're sorry, but you've reached the end of search results.`,
-          position: "topRight"
-      });
+    else {
+      btnLoadMore.classList.remove("hidden");
+
+      const totalPages = Math.ceil(totalHits / perPage);
+      if (page >= totalPages) {
+          btnLoadMore.classList.add("hidden");
+          iziToast.info({
+              title: '😢',
+              message: `We're sorry, but you've reached the end of search results.`,
+              position: "topRight"
+          });
       }
-      btnLoadMore.classList.remove("hidden")
-      return result
-    } 
-  
+      return result;
+    }
   } catch (error) {
     console.log(error);
   } finally {

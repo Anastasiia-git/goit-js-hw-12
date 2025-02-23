@@ -1,5 +1,8 @@
 import { createMarkup } from "./js/render-functions";
 
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
 const gallery = document.querySelector(".gallery");
 const form = document.querySelector(".form")
 const btnLoadMore = document.querySelector(".btnLoadMore")
@@ -19,10 +22,14 @@ form.addEventListener("submit", async (e) => {
         currentSearch = search;
         page = 1;
 
-        createMarkup(currentSearch, page);
+        gallery.innerHTML = ''
+
+        await createMarkup(currentSearch, page);
+        let lightbox = new SimpleLightbox('.gallery a');
+        lightbox.refresh();
        }
+       
        e.target.reset()
-       gallery.innerHTML = ''
     }
     catch (error) {
       console.log(error);
@@ -35,6 +42,9 @@ form.addEventListener("submit", async (e) => {
       btnLoadMore.disabled = true
       page++; 
       await createMarkup(currentSearch, page);
+
+      let lightbox = new SimpleLightbox('.gallery a');
+      lightbox.refresh();
 
       const cart = document.querySelector(".gallery-item")
       const cartHeight = cart.getBoundingClientRect().height     

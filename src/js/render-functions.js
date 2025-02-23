@@ -1,6 +1,3 @@
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
-
 import { getAxios } from "./pixabay-api";
 
 export const createMarkup = async (search, page) => {
@@ -30,13 +27,6 @@ export const createMarkup = async (search, page) => {
             `;
             gallery.insertAdjacentHTML('beforeend', markup);
         })
-
-        let newGallery = new SimpleLightbox('.gallery a');
-        newGallery.on('show.simplelightbox', function () {
-            newGallery.options.captionsData = 'alt'
-            newGallery.options.captionDelay = 2500;
-        });
-        newGallery.refresh()
     
     } catch (error) {
         console.error("Error in createMarkup:", error);
