@@ -5,7 +5,8 @@ export const createMarkup = async (search, page) => {
 
     try {
         
-        const hits = await getAxios(search, page); 
+        const result = await getAxios(search, page); 
+        const hits = result.data.hits;
 
         hits.forEach(hit => {      
             const markup = `
