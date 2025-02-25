@@ -86,18 +86,17 @@ btnLoadMore.addEventListener("click", async (e) => {
   page++;
 
   const searchSuccessful = await searchImages(currentSearch, page);
+
+  searchSuccessful
+
+  const cart = document.querySelector(".gallery-item")
+  const cartHeight = cart.getBoundingClientRect().height    
   
-  if (searchSuccessful) {
-    const cart = document.querySelector(".gallery-item")
-    const cartHeight = cart.getBoundingClientRect().height     
-    
-    window.scrollBy({
-    left: 0,
-    top: cartHeight * 2 ,
-    behavior: "smooth"
-  })
-}
+  window.scrollBy({
+  left: 0,
+  top: cartHeight * 2 ,
+  behavior: "smooth"
+})
 
   btnLoadMore.disabled = false
-  e.target.reset();
 });
